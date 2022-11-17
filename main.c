@@ -6,7 +6,6 @@
 #include "agenda.c"
 #include "contatos.c"
 
-
 #define TITULO_OPCAO1 "Adicionar contato"
 #define TITULO_OPCAO2 "Remover contato"
 #define TITULO_OPCAO3 "Listar contatos cadastrados"
@@ -71,6 +70,16 @@ int main(void) {
     unsigned int saida = 0; // auxiliar para sair do programa
 	setlocale(LC_ALL, "Portuguese");
 
+
+	Lista lista;
+	lista.inicio = NULL;
+    Agendas agenda;
+    int resp;
+	char nome1[100];
+	char nome[100];
+	char email[100];
+    int tel, idade;
+	int op,op2;
 	
 	
     do {
@@ -82,32 +91,136 @@ int main(void) {
         op = LeOpcao(OPCAO1, OPCAO1 + N_OPCOES - 1);
         switch(op) {
             case OPCAO1:
- 	  			Beep(1000,500);
+                ler(&agenda);
+  		        inserir_inicio(&lista, agenda);
                 break;
 
             case OPCAO2:
-            	Beep(1000,500); 
+                printf("Digite o nome do contato que você deseja deletar:\n");	
+		        scanf(" %s", nome);
+		        deletar_Nome(&lista, nome);
                 break;
 
             case OPCAO3:
-                Beep(1000,500);
+                Imprimir(lista);
+
                 break;
             
             case OPCAO4:
-            	Beep(1000,500); 
+            	printf("Informe o nome agenda que deseja pesquisar o contato para alterar:   ");
+			    scanf("%s", nome);
+	  struct No* r1 = Busca_agenda(lista,nome);
+		if(r1 == NULL) {
+				printf("Agenda não encontrada!");
+		} else
+		{
+			printf("Agenda encontrada com sucesso!\n");
+			printf("\n=====================================================\n");
+			printf("Informe qual dado você deseja alterar no contato: \n");
+			printf("1 - Para editar o nome\n2 - para editar a idade\n3 - Para editar o número do telefone\n4 - Para editar o email\n5 - Para volta ao menu\n");
+			printf("\n=====================================================\n");
+			scanf("%d",&op2);
+			
+			if(op2 == 1) {	
+			printf("Digite o nome do contato que deseja editar: ");
+  	   	   	scanf(" %s",nome);
+			printf("Informe o novo nome para alterar: ");
+  		   	scanf("%s",nome1);
+  		   	alterar_nome(&lista,nome,nome1);
+			break;
+			}
+			else if(op2 == 2){
+				printf("Digite o nome do contato que deseja editar: ");
+  				scanf(" %s",nome);
+  		   	   	printf("Informe a nova idade para alterar no contato: ");
+  		   	   	scanf("%d",&idade);
+  		   	   	alterar_idade(&lista,nome,idade);
+  				break;
+			}
+			else if(op2 == 3){
+				printf("Digite o nome do contato que deseja editar: ");
+  		   	   	scanf(" %s",nome);
+  		   	   	printf("Informe o novo número do telefone para alterar no contato: ");
+  	   	   	  	scanf("%d",&tel);
+  		   	   	alterar_telefone(&lista,nome,tel);	
+  		   	   	break;
+			}
+			else if(op2 == 4){
+				printf("Digite o nome do contato que deseja editar: ");
+  	    		scanf(" %s",nome);
+  	   	   	    printf("Informe o novo email: ");
+    		    scanf("%s", email);
+       	   	    alterar_Email(&lista, nome,  email);
+       	   	    break;
+			} 
+			else if(op2 == 5){
+				break;
+			}
+			else{
+				printf("Opção inválida!");
+			}
+		
+		}
                 break;            
             
             case OPCAO5:
-            	Beep(1000,500); 
+ 	        printf("Informe o nome do contato que deseja pesquisar: ");
+			scanf("%s", nome);
+	  	    struct No* r = pesquisar(lista,nome);
+	  	    
+		if(r == NULL){
+				printf("\nContato não encontrado\n");
+		}
+		else{
+		     	printf("\nContato encontrado\n\n");
+      	  	    printf("=======Exibindo os dados da pesquisa=========\n");
+				printf("Nome: %s \n", r->dado.Contatos.nome);
+				printf("Idade: %d \n", r->dado.Contatos.idade);
+				printf("Telefone: %d \n", r->dado.Contatos.telefone);
+				printf("=============================================\n");
+		}			           
+            	
                 break;
 
             case OPCAO6:
-            	Beep(1000,500); 	
+  		printf("Informe o nome da agenda que deseja pesquisar: ");
+        scanf("%s", nome);
+	    struct No* r2 = Busca_agenda(lista,nome);
+		if(r2 == NULL){
+				printf("Agenda não encontrada!");
+		}
+		else {
+		     	printf("\nAgenda encontrada\n");
+      	  	    printf("=======Exibindo os dados da pesquisa=========\n");
+				printf("Nome: %s \n", r2->dado.nome);
+				printf("Códico de indentificação: %s \n", r2->dado.codigo_de_identificacao);
+				printf("Número de contatos: %d \n", r2->dado.numero_contatos);
+				printf("=============================================\n");
+			printf("Informe o nome do contato que deseja pesquisar: ");
+			scanf("%s", nome);
+			
+	    struct No* r = pesquisar(lista,nome);
+	    
+		if(r == NULL){
+				printf("\nContato não encontrado\n");
+		}
+		else{
+		     	printf("\nContato encontrado na dada agenda\n\n");
+      	  	   printf("=======Exibindo os dados da pesquisa=========\n");
+				printf("Nome: %s \n", r->dado.Contatos.nome);
+				printf("Idade: %d \n", r->dado.Contatos.idade);
+				printf("Telefone: %d \n", r->dado.Contatos.telefone);
+				printf("=============================================\n");
+		}
+				
+		}
                 break;
 			
             case OPCAO7:
-                Beep(1000,500);
-                break;
+                  	resp = Consultar_quantitativo(lista);
+  	                printf("Quantidade de agendas: %d",resp);
+	            break;
+                
 									            
             case OPCAO8: 
                 saida = 1;
@@ -128,5 +241,3 @@ int main(void) {
     } while(!saida);
     return 0;
 }
-
-
