@@ -56,7 +56,7 @@ void ler(Agendas *a){
 		printf("Informe a idade:\n");
 		scanf("%d", &a->Contatos.idade);
 		printf("Informe o número de telefone:\n");
-	    scanf("%d", &a->Contatos.telefone);
+	        scanf("%d", &a->Contatos.telefone);
 		printf("Informe o email:\n");
 		scanf(" %s", a->Contatos.email);  
 
@@ -67,7 +67,7 @@ void ler(Agendas *a){
 
 	
 	FILE *arquivo_agenda;
-    arquivo_agenda =fopen("ListaContatos.txt", "a");
+        arquivo_agenda =fopen("ListaContatos.txt", "a");
     
     if(arquivo_agenda == NULL){
 		printf("ERRO AO ABRIR ARQUIVO!");
@@ -223,25 +223,25 @@ int Consultar_quantitativo(Lista lista){
 
 
 void menu(){
-    printf("\n|*********************************************|");
-    printf("\n|                   MENU                      |\n");
+        printf("\n|*********************************************|");
+        printf("\n|                   MENU                      |\n");
 	printf("|*********************************************|");
 	printf("\n|---------------------------------------------|\n");
-    printf("|1. Adicionar contato                         |");
+        printf("|1. Adicionar contato                         |");
 	printf("\n|---------------------------------------------|\n");
  	printf("|2. Remover contato                           |");
 	printf("\n|---------------------------------------------|\n");
-    printf("|3. Listar contatos cadastrados               |");
+        printf("|3. Listar contatos cadastrados               |");
 	printf("\n|---------------------------------------------|\n");
-    printf("|4. Editar o contato                          |");
+        printf("|4. Editar o contato                          |");
 	printf("\n|---------------------------------------------|\n");
-    printf("|5. Buscar contato                            |");
+        printf("|5. Buscar contato                            |");
 	printf("\n|---------------------------------------------|\n");
-    printf("|6. Consultar contato em uma dada agenda      |");
+        printf("|6. Consultar contato em uma dada agenda      |");
 	printf("\n|---------------------------------------------|\n");
-    printf("|7. Consultar quantitativo de agendas         |");
+        printf("|7. Consultar quantitativo de agendas         |");
 	printf("\n|---------------------------------------------|\n");
-    printf("|8. Sair                                      |");
+        printf("|8. Sair                                      |");
 	printf("\n|---------------------------------------------|\n");
 }
 
@@ -250,12 +250,12 @@ int main(){
 	setlocale(LC_ALL, "Portuguese");
 	Lista lista; 
 	lista.inicio = NULL; 
-    Agendas agenda;
-    int resp;
+        Agendas agenda;
+        int resp;
 	char nome1[100];
 	char nome[100];
 	char email[100];
-    int tel, idade;
+        int tel, idade;
 	int op,op2;			
 do {
 
@@ -368,13 +368,13 @@ do {
 		}
 		else {
 		     	printf("\nAgenda encontrada\n");
-      	  	    printf("=======Exibindo os dados da pesquisa=========\n");
+      	  	                printf("=======Exibindo os dados da pesquisa=========\n");
 				printf("Nome: %s \n", r2->dado.nome);
 				printf("Códico de indentificação: %s \n", r2->dado.codigo_de_identificacao);
 				printf("Número de contatos: %d \n", r2->dado.numero_contatos);
 				printf("=============================================\n");
-			    printf("Informe o nome do contato que deseja pesquisar: ");
-		     	scanf("%s", nome);
+			        printf("Informe o nome do contato que deseja pesquisar: ");
+		     	        scanf("%s", nome);
 			
 	    struct No* r = pesquisar(lista,nome);
 	    
@@ -382,8 +382,8 @@ do {
 				printf("\nContato não encontrado\n");
 		}
 		else{
-		     	printf("\nContato encontrado na dada agenda\n\n");
-      	  	    printf("=======Exibindo os dados da pesquisa=========\n");
+		     	        printf("\nContato encontrado na dada agenda\n\n");
+      	  	                printf("=======Exibindo os dados da pesquisa=========\n");
 				printf("Nome: %s \n", r->dado.Contatos.nome);
 				printf("Idade: %d \n", r->dado.Contatos.idade);
 				printf("Telefone: %d \n", r->dado.Contatos.telefone);
