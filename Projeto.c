@@ -4,12 +4,14 @@
 #include <string.h>
 #include <windows.h>
 
+
 typedef struct contatos{
     char nome[100];
     int idade;
     int telefone;
     char email[100];
 }Contatos;
+
 
 typedef struct agendas{
     char nome[100];
@@ -18,22 +20,23 @@ typedef struct agendas{
     struct contatos Contatos;
 }Agendas;
 
+
 struct No {
-	Agendas dado;
+	Agendas dado;     
 	struct No* prox;
 };
 
 typedef struct {
-	struct No* inicio;
+	struct No* inicio; 
 } Lista;
 
 
-//Função para ler agenda e contatos
+
 void ler(Agendas *a){
 	
 		 
 	printf("\n*******************************************");
-	printf("\n    DIGITE AS INFORMAÇÕES DA AGENDA        \n");
+	printf("\n    DIGITE AS INFORMAÇÕES DA AGENDA       \n");
 	printf("*******************************************\n");
 	
 		printf("Digite o nome da agenda:\n");
@@ -62,29 +65,27 @@ void ler(Agendas *a){
 	FILE *arquivo_agenda;
     arquivo_agenda =fopen("ListaContatos.txt", "a");
     
-   if(arquivo_agenda == NULL){
+    if(arquivo_agenda == NULL){
 		printf("ERRO AO ABRIR ARQUIVO!");
 	}
-//	else {
-//		printf("Salvo com sucesso!");
-//	}
-	fprintf(arquivo_agenda, "Nome da agenda: %s\tCódigo de verificação da agenda: %s\tNúmero de contatos da agenda: %d\n\nNome: %s\tIdade: %d\tTelefone: %d\tEmail: %s\n", a->nome, a->codigo_de_identificacao, a->numero_contatos,  a->Contatos.nome, a->Contatos.idade, a->Contatos.telefone,  a->Contatos.email );
+
+	fprintf(arquivo_agenda, "Nome da agenda: %s\tCódigo de verificação da agenda: %s\tNúmero de contatos da agenda: %d\n\nNome: %s\tIdade: %d\tTelefone: %d\tEmail: %s\n\n", a->nome, a->codigo_de_identificacao, a->numero_contatos,  a->Contatos.nome, a->Contatos.idade, a->Contatos.telefone,  a->Contatos.email );
 	fclose(arquivo_agenda);
 		
 }
 
-// inserindo numa lista encadeada no inicio
+
 void inserir_inicio(Lista* plista, Agendas dado) {
-	struct No* novo = (struct No*) malloc(sizeof(struct No));
-	novo->dado = dado;
-	novo->prox = plista->inicio;
-	plista->inicio = novo;
+	struct No* novo = (struct No*)malloc(sizeof(struct No));
+	novo->dado = dado; 
+	novo->prox = plista->inicio; 
+	plista->inicio = novo; 
 }
 
-// imprindo todos os contato da lista
+
 void Imprimir(Lista lista) {
 	struct No * pi;
-	for(pi = lista.inicio; pi != NULL  ; pi = pi->prox) {
+	for(pi = lista.inicio; pi != NULL  ; pi = pi->prox) { 
         printf("___________________________________________________________________________________________________\n");
         printf("Nome da Agenda: %s \t", pi->dado.nome);
 		printf("Códico de verificação da agenda: %s \t", pi->dado.codigo_de_identificacao);
@@ -102,24 +103,23 @@ void Imprimir(Lista lista) {
 }
 
 
-
 struct No * pesquisar (Lista lista, char *nome ) { 
     struct No* pi;
-    for(pi = lista.inicio; pi != NULL && strcmp(pi->dado.Contatos.nome,nome); pi = pi->prox);
-    return pi;
-}
-struct No * Busca_agenda (Lista lista, char *nome ) { 
-    struct No* pi;
-    for(pi = lista.inicio; pi != NULL && strcmp(pi->dado.nome,nome); pi = pi->prox);
+    for(pi = lista.inicio; pi != NULL && strcmp(pi->dado.Contatos.nome,nome); pi = pi->prox); 
     return pi;
 }
 
-//Função remover contatos
+
+struct No * Busca_agenda (Lista lista, char *nome ) { 
+    struct No* pi;
+    for(pi = lista.inicio; pi != NULL && strcmp(pi->dado.nome,nome); pi = pi->prox); 
+    return pi;
+}
+
+
 void deletar_Nome(Lista *plista, char *nome) {
-	if(plista->inicio == NULL) {  //Quanda a agenda está vazia
-		printf("\n");
-		printf("A lista está vazia. \n");
-		printf("\n");
+	if(plista->inicio == NULL) {  
+		printf("\nA lista está vazia.\n\n");
 	}
 	else if(  !strcmp(plista->inicio->dado.Contatos.nome, nome) ) { 
 		struct No* pi = plista->inicio;
@@ -152,8 +152,8 @@ void deletar_Nome(Lista *plista, char *nome) {
  
 }
 
-//Função para alterar na lista, ou seja, editar o contato
-void alterar_nome(Lista *lista,char *nome, char nome1[]) { //alterar o nome
+
+void alterar_nome(Lista *lista,char *nome, char nome1[]) { 
    struct No *pi = pesquisar(*lista,nome);
     if(pi == NULL){
        printf("O contato não pode ser alterado!\n");
@@ -165,7 +165,7 @@ void alterar_nome(Lista *lista,char *nome, char nome1[]) { //alterar o nome
    	system("pause");
 	system("cls");
 }
-void alterar_idade(Lista *lista, char *nome, int idade) { //alterar a idade	
+void alterar_idade(Lista *lista, char *nome, int idade) { 
   struct  No *pi = pesquisar(*lista,nome);
    if(pi == NULL){
         printf("O contato não pode ser alterado!\n");
@@ -178,7 +178,7 @@ void alterar_idade(Lista *lista, char *nome, int idade) { //alterar a idade
    	system("pause");
 	system("cls");
 }
-void alterar_telefone(Lista *lista, char *nome, int telefone) { //alterar o telefone
+void alterar_telefone(Lista *lista, char *nome, int telefone) { 
    struct No *pi = pesquisar(*lista,nome);
     if(pi == NULL){
         printf("O contato não pode ser alterado!\n");
@@ -191,7 +191,7 @@ void alterar_telefone(Lista *lista, char *nome, int telefone) { //alterar o tele
 	system("cls");
 }
 
-void alterar_Email(Lista *lista, char *nome, char email[]) { //alterar email
+void alterar_Email(Lista *lista, char *nome, char email[]) { 
   struct No *pi = pesquisar(*lista,nome);
     if(pi == NULL){
        printf("O contato não pode ser alterado!\n");
@@ -203,7 +203,7 @@ void alterar_Email(Lista *lista, char *nome, char email[]) { //alterar email
 	system("cls");
 }
 
-//Função para consultar quantitativo de agendas
+
 int Consultar_quantitativo(Lista lista){
 	struct No *pi;
 	int cont=0;
@@ -215,6 +215,8 @@ int Consultar_quantitativo(Lista lista){
     system("pause");
 	system("cls");
 }
+
+
 
 void menu(){
     printf("\n|*********************************************|");
@@ -239,10 +241,11 @@ void menu(){
 	printf("\n|---------------------------------------------|\n");
 }
 
+
 int main(){
 	setlocale(LC_ALL, "Portuguese");
-	Lista lista;
-	lista.inicio = NULL;
+	Lista lista; 
+	lista.inicio = NULL; 
     Agendas agenda;
     int resp;
 	char nome1[100];
@@ -270,17 +273,16 @@ do {
 		deletar_Nome(&lista, nome);
   		break;
   	
-
   case 3:
   		Imprimir(lista);
   		break;
   	
   	case 4:	
-  			printf("Informe o nome agenda que deseja pesquisar o contato para alterar:   ");
-			scanf("%s", nome);
+         printf("Informe o nome agenda que deseja pesquisar o contato para alterar:   ");
+         scanf("%s", nome);
 			
-	  struct No* r1 = Busca_agenda(lista,nome);
-		if(r1 == NULL) {
+	     struct No* r1 = Busca_agenda(lista,nome);
+         if(r1 == NULL) {
 				printf("Agenda não encontrada!");
 		} else
 		{
@@ -335,9 +337,9 @@ do {
   	break;
 
   case 5:
-			printf("Informe o nome do contato que deseja pesquisar: ");
-			scanf("%s", nome);
-	  	    struct No* r = pesquisar(lista,nome);
+		printf("Informe o nome do contato que deseja pesquisar: ");
+        scanf("%s", nome);
+	    struct No* r = pesquisar(lista,nome);
 	  	    
 		if(r == NULL){
 				printf("\nContato não encontrado\n");
@@ -355,6 +357,7 @@ do {
   case 6:
   		printf("Informe o nome da agenda que deseja pesquisar: ");
         scanf("%s", nome);
+        
 	    struct No* r2 = Busca_agenda(lista,nome);
 		if(r2 == NULL){
 				printf("Agenda não encontrada!");
@@ -366,8 +369,8 @@ do {
 				printf("Códico de indentificação: %s \n", r2->dado.codigo_de_identificacao);
 				printf("Número de contatos: %d \n", r2->dado.numero_contatos);
 				printf("=============================================\n");
-			printf("Informe o nome do contato que deseja pesquisar: ");
-			scanf("%s", nome);
+			    printf("Informe o nome do contato que deseja pesquisar: ");
+		     	scanf("%s", nome);
 			
 	    struct No* r = pesquisar(lista,nome);
 	    
@@ -376,7 +379,7 @@ do {
 		}
 		else{
 		     	printf("\nContato encontrado na dada agenda\n\n");
-      	  	   printf("=======Exibindo os dados da pesquisa=========\n");
+      	  	    printf("=======Exibindo os dados da pesquisa=========\n");
 				printf("Nome: %s \n", r->dado.Contatos.nome);
 				printf("Idade: %d \n", r->dado.Contatos.idade);
 				printf("Telefone: %d \n", r->dado.Contatos.telefone);
@@ -384,29 +387,31 @@ do {
 		}
 				
 		}		 	
-  	break;
+     	break;
   
   case 7: 
-  	resp = Consultar_quantitativo(lista);
-  	printf("Quantidade de agendas: %d",resp);
-	break;
+  	    resp = Consultar_quantitativo(lista);
+  	    printf("Quantidade de agendas: %d\n\n",resp);
+		system("pause");
+		system("cls");
+     	break;
 
   case 8:
-  	printf("Saindo...\n");
-	printf("\n=============================================================\n");
-	printf("Obrigada por usar o meu sistema de gerenciamento de contatos!");
-	printf("\n=============================================================\n");
+  	    printf("Saindo...\n");
+		printf("\n=============================================================\n");
+		printf("Obrigada por usar o meu sistema de gerenciamento de contatos!");
+		printf("\n=============================================================\n");
                           
-	printf("\n\nSistema desenvolvido por:\nÍris Matias da Silva.\n\n");
-  	break;
+	   	printf("\n\nSistema desenvolvido por:\nÍris Matias da Silva.\n\n");
+  	   	break;
 
   default:
-  	Beep(1000,500); 
-    printf("Este programa possui um bug.\nTente novamente.\n\n");
-    Beep(1000,500); 
- 	  system("pause");
-	  system("cls");
-    break;
+  	   	Beep(1000,500); 
+   	    printf("Este programa possui um bug.\nTente novamente.\n\n");
+   	    Beep(1000,500); 
+ 		system("pause");
+		system("cls");
+    	break;
   }
 
   }   
