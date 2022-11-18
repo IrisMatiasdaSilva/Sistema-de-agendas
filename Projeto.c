@@ -59,8 +59,12 @@ void ler(Agendas *a){
 	    scanf("%d", &a->Contatos.telefone);
 		printf("Informe o email:\n");
 		scanf(" %s", a->Contatos.email);  
+
+		printf("\n\nContato adicionado com sucesso na agenda!\n\n");
+		system("pause");
 	
 	system("cls");
+
 	
 	FILE *arquivo_agenda;
     arquivo_agenda =fopen("ListaContatos.txt", "a");
